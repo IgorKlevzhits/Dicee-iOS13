@@ -73,6 +73,10 @@ class ViewController: UIViewController {
         return element
     }()
     
+    // MARK: - Private Properties
+    
+    private let diceArray = [#imageLiteral(resourceName: "DiceOne"), #imageLiteral(resourceName: "DiceTwo"), #imageLiteral(resourceName: "DiceThree"), #imageLiteral(resourceName: "DiceFour"), #imageLiteral(resourceName: "DiceFive"), #imageLiteral(resourceName: "DiceSix")]
+    
     // MARK: - Life Cycle
 
     override func viewDidLoad() {
@@ -80,6 +84,14 @@ class ViewController: UIViewController {
         
         setViews()
         setupConstraints()
+        
+        
+    }
+    
+    @objc private func rollButtonTapped() {
+        
+        diceOneImageView.image = diceArray.randomElement()
+        diceTwoImageView.image = diceArray.randomElement()
     }
 
 }
@@ -99,6 +111,8 @@ extension ViewController {
         diceeStackView.addArrangedSubview(diceTwoImageView)
         mineStackView.addArrangedSubview(buttonView)
         buttonView.addSubview(rollButton)
+        
+        rollButton.addTarget(self, action: #selector(rollButtonTapped), for: .touchUpInside)
     }
     
     // MARK: - Setup Constraints
